@@ -6,7 +6,7 @@ references:
     - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
       environment:
         GITHUB_TEAM_NAME_SLUG: laa-apply-for-legal-aid
-        
+
 jobs:
   build:
     parallelism: 2
@@ -94,7 +94,6 @@ jobs:
             $(aws ecr get-login --region eu-west-2 --no-include-email)
             setup-kube-auth
             kubectl config use-context uat
-      - *decrypt_secrets
       - deploy:
           name: Helm deployment to UAT
           command: |
