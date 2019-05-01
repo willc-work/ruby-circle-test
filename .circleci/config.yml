@@ -82,22 +82,22 @@ jobs:
                               --format progress \
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
-    deploy_uat:
-      <<: *deploy_container_config
-      steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          name: Kubectl deployment setup UAT
-          command: |
-            $(aws ecr get-login --region eu-west-2 --no-include-email)
-            setup-kube-auth
-            kubectl config use-context uat
-      - deploy:
-          name: Helm deployment to UAT
-          command: |
-            ./bin/uat_deploy
+    # deploy_uat:
+    #   <<: *deploy_container_config
+    #   steps:
+    #   - checkout
+    #   - setup_remote_docker:
+    #       docker_layer_caching: true
+    #   - run:
+    #       name: Kubectl deployment setup UAT
+    #       command: |
+    #         $(aws ecr get-login --region eu-west-2 --no-include-email)
+    #         setup-kube-auth
+    #         kubectl config use-context uat
+    #   - deploy:
+    #       name: Helm deployment to UAT
+    #       command: |
+    #         ./bin/uat_deploy
 
       # Save test results for timing analysis
       - store_test_results:
