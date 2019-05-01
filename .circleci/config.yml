@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    parallelism: 3
+    parallelism: 2
     docker:
       - image: circleci/ruby:2.4.2-jessie-node
         environment:
@@ -21,7 +21,7 @@ jobs:
 
       # Which version of bundler?
       - run:
-          name: Which bundler?
+          name: Which bundler version is running?
           command: bundle -v
 
       # Restore bundle cache
@@ -57,7 +57,7 @@ jobs:
             - ~/.cache/yarn
 
       - run:
-          name: Wait for DB
+          name: Wait for Database to start
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run:
