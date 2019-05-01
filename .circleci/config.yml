@@ -1,4 +1,12 @@
 version: 2
+
+references:
+  deploy_container_config: &deploy_container_config
+    docker:
+    - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
+      environment:
+        GITHUB_TEAM_NAME_SLUG: laa-apply-for-legal-aid
+        
 jobs:
   build:
     parallelism: 2
